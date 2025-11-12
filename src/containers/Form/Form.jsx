@@ -6,7 +6,7 @@ const Form = () => {
     email: "",
     password: "",
   });
-  const [submittedData, setSubmittedData] = useState(null);
+  const [submittedData, setSubmittedData] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,7 +15,7 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmittedData(formData);
+    setSubmittedData((prevData) => [...prevData, formData]);
     setFormData({ name: "", email: "", password: "" });
   };
 
@@ -58,14 +58,15 @@ const Form = () => {
         </button>
       </form>
 
-      {submittedData && (
-        <div>
-          <span>Name:</span>
-          <p>{submittedData.name}</p>
-          <span>Email:</span>
-          <p>{submittedData.email}</p>
-        </div>
-      )}
+      {submittedData.length > 0 &&
+        submittedData.map((data, index) => (
+          <div key={index}>
+            <span>Name:</span>
+            <p>{data.name}</p>
+            <span>Email:</span>
+            <p>{data.email}</p>
+          </div>
+        ))}
     </div>
   );
 };

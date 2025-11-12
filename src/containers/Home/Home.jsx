@@ -9,6 +9,9 @@ const Home = () => {
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded">
         <Link to="/form">Form</Link>
       </button>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded">
+        <Link to="/search">Search filter</Link>
+      </button>
     </div>
   );
 };
