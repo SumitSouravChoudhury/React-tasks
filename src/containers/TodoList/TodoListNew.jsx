@@ -18,7 +18,7 @@ const TodoListNew = () => {
   const handleAdd = () => {
     setTasks((prev) => [
       ...prev,
-      { id: Math.random(), title: "", description: "", isEditing: true },
+      { id: Date.now(), title: "", description: "", isEditing: true },
     ]);
   };
 
@@ -26,17 +26,17 @@ const TodoListNew = () => {
     setTasks([]);
   };
 
+  const handleChange = (id, field, value) => {
+    setTasks((prev) =>
+      prev.map((task) => (task.id === id ? { ...task, [field]: value } : task))
+    );
+  };
+
   const handleSave = (id) => {
     setTasks((prev) =>
       prev.map((task) =>
         task.id === id ? { ...task, isEditing: false } : task
       )
-    );
-  };
-
-  const handleChange = (id, name, value) => {
-    setTasks((prev) =>
-      prev.map((task) => (task.id === id ? { ...task, [name]: value } : task))
     );
   };
 

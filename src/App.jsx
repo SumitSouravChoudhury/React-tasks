@@ -8,6 +8,7 @@ import Form from "./containers/Form/Form";
 import TodoListNew from "./containers/TodoList/TodoListNew";
 import FormNew from "./containers/Form/FormNew";
 import SearchFilter from "./containers/SearchFilter/SearchFilter";
+import SearchFilterNew from "./containers/SearchFilter/SearchFilterNew";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/form" element={<Form />} />
         <Route path="/form-new" element={<FormNew />} />
         <Route path="/search" element={<SearchFilter />} />
+        <Route path="/search-new" element={<SearchFilterNew />} />
       </Routes>
     </Router>
   );
