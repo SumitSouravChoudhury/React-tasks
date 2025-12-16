@@ -12,6 +12,15 @@ const Home = () => {
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded">
         <Link to="/search">Search filter</Link>
       </button>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded">
+        <Link to="/counter">Counter</Link>
+      </button>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded">
+        <Link to="/circle">Circle Task</Link>
+      </button>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded">
+        <Link to="/emoji">Emoji Task</Link>
+      </button>
     </div>
   );
 };

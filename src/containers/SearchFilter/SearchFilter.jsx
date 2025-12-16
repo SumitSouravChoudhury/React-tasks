@@ -1,39 +1,14 @@
 import { useEffect, useState } from "react";
+import useFetch from "../../components/useFetch";
 
 const SearchFilter = () => {
-  const [users, setUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterData, setFilterData] = useState([]);
+  const [isAsc, setIsAsc] = useState(true);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/users"
-        );
-
-        if (!response.ok) {
-          console.log("Error fetching the response");
-        }
-
-        const userData = await response.json();
-        setUsers(userData);
-        setFilterData(userData);
-      } catch (err) {
-        console.log(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  const { data: users, loading: isLoading } = useFetch(
+    "https://jsonplaceholder.typicode.com/users"
+  );
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -47,16 +22,37 @@ const SearchFilter = () => {
     return () => clearTimeout(delay);
   }, [searchTerm, users]);
 
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const toggleSort = () => {
+    setFilterData(
+      [...filterData].sort((a, b) =>
+        isAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+      )
+    );
+    setIsAsc(!isAsc);
+  };
+
   return (
     <div className="flex flex-col gap-4">
-      <input
-        className="border rounded p-2 w-100"
-        type="text"
-        placeholder="search name..."
-        name="search"
-        value={searchTerm}
-        onChange={handleChange}
-      />
+      <div className="flex gap-4">
+        <input
+          className="border rounded p-2 w-100"
+          type="text"
+          placeholder="search name..."
+          name="search"
+          value={searchTerm}
+          onChange={handleChange}
+        />
+        <button
+          className="bg-blue-600 text-white py-2 px-5 rounded-lg hover:bg-blue-700 transition-all cursor-pointer"
+          onClick={toggleSort}
+        >
+          {isAsc ? "Sort: Asc" : "Sort: Desc"}
+        </button>
+      </div>
 
       {isLoading ? (
         <p>Loading...</p>
@@ -64,13 +60,19 @@ const SearchFilter = () => {
         filterData.map((user) => {
           return (
             <div key={user.id}>
-              <span>{user.id}</span>
-              <p>Name:</p>
-              <span>{user.name}</span>
-              <p>Username:</p>
-              <span>{user.username}</span>
-              <p>Email:</p>
-              <span>{user.email}</span>
+              <div>
+                <p>{user.id}</p>
+                <span className="font-bold">Name: </span>
+                <span>{user.name}</span>
+              </div>
+              <div>
+                <span className="font-bold">Username: </span>
+                <span>{user.username}</span>
+              </div>
+              <div>
+                <span className="font-bold">Email: </span>
+                <span>{user.email}</span>
+              </div>
             </div>
           );
         })

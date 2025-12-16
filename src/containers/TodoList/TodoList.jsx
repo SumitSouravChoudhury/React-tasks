@@ -4,7 +4,7 @@ const TodoList = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    const savedTasks = JSON.parse(localStorage.getItem("tasks"));
+    const savedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
 
     if (savedTasks && savedTasks.length > 0) {
       setTasks(savedTasks);

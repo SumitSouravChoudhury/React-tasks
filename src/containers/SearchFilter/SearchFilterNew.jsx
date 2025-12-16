@@ -32,15 +32,20 @@ const SearchFilterNew = () => {
     fetchData();
   }, []);
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setSearch(value);
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      const filterItems = users.filter((user) =>
+        user.name.toLowerCase().includes(search.toLowerCase())
+      );
 
-    setFormatData(
-      users.filter((user) =>
-        user.name.toLowerCase().includes(value.toLowerCase())
-      )
-    );
+      setFormatData(filterItems);
+    }, 500);
+
+    return () => clearTimeout(delay);
+  }, [search, users]);
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
   };
 
   return (
@@ -48,8 +53,8 @@ const SearchFilterNew = () => {
       <input
         type="text"
         className="border rounded p-2 w-100"
-        name="searchQuery"
         placeholder="search name..."
+        name="searchQuery"
         value={search}
         onChange={handleChange}
       />

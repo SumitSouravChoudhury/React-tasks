@@ -10,14 +10,18 @@ const FormNew = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setFinalData((prev) => [...prev, formData]);
     setFormData({ name: "", email: "", password: "" });
   };
+
+  console.log(finalData, "finalData");
 
   return (
     <div>
@@ -39,13 +43,7 @@ const FormNew = () => {
           onChange={handleChange}
         />
         <label>Password:</label>
-        <input
-          className="border rounded"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
+        <input className="border rounded" type="password" />
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded"
           type="submit"
@@ -60,8 +58,6 @@ const FormNew = () => {
           <span>{data.name}</span>
           <span>Email:</span>
           <span>{data.email}</span>
-          <span>Password:</span>
-          <span>{data.password}</span>
         </div>
       ))}
     </div>

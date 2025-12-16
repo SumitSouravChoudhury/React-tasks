@@ -9,6 +9,9 @@ import TodoListNew from "./containers/TodoList/TodoListNew";
 import FormNew from "./containers/Form/FormNew";
 import SearchFilter from "./containers/SearchFilter/SearchFilter";
 import SearchFilterNew from "./containers/SearchFilter/SearchFilterNew";
+import Counter from "./containers/Counter/Counter";
+import CircleTask from "./containers/CircleTask/CircleTask";
+import EmojiTask from "./containers/EmojiTask/EmojiTask";
 
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
         <Route path="/form-new" element={<FormNew />} />
         <Route path="/search" element={<SearchFilter />} />
         <Route path="/search-new" element={<SearchFilterNew />} />
+        <Route path="/counter" element={<Counter />} />
+        <Route path="/circle" element={<CircleTask />} />
+        <Route path="/emoji" element={<EmojiTask />} />
       </Routes>
     </Router>
   );
