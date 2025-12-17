@@ -48,6 +48,22 @@ const SearchFilterNew = () => {
     setSearch(e.target.value);
   };
 
+  const highLighter = (text, highlight) => {
+    if (!highlight) return text;
+
+    const regex = new RegExp(`(${highlight})`, "gi");
+
+    return text.split(regex).map((part, index) =>
+      part.toLowerCase() === highlight.toLowerCase() ? (
+        <mark key={index} className="bg-yellow-300">
+          {part}
+        </mark>
+      ) : (
+        part
+      )
+    );
+  };
+
   return (
     <div>
       <input
@@ -67,7 +83,7 @@ const SearchFilterNew = () => {
             <div key={user.id}>
               <span>{user.id}</span>
               <p>Name:</p>
-              <span>{user.name}</span>
+              <span>{highLighter(user.name, search)}</span>
             </div>
           );
         })

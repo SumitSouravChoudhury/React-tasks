@@ -56,7 +56,7 @@ const Form = () => {
       </h2>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-100">
-        <label className="font-medium text-gray-700">Name</label>
+        <label className="font-medium">Name</label>
         <div className="relative">
           <input
             className="border border-gray-300 rounded px-3 py-2 focus:outline-none w-full"
@@ -72,7 +72,7 @@ const Form = () => {
           )}
         </div>
 
-        <label className="font-medium text-gray-700">Email</label>
+        <label className="font-medium">Email</label>
         <div className="relative">
           <input
             className="border border-gray-300 rounded px-3 py-2 focus:outline-none w-full"
@@ -88,7 +88,7 @@ const Form = () => {
           )}
         </div>
 
-        <label className="font-medium text-gray-700">Password</label>
+        <label className="font-medium ">Password</label>
         <div className="relative">
           <input
             className="border border-gray-300 rounded px-3 py-2 focus:outline-none w-full"

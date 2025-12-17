@@ -72,7 +72,7 @@ const TodoList = () => {
           {task.isEditing ? (
             <div className="flex flex-col gap-2 w-100">
               <span>{index + 1}</span>
-              <p className="font-medium text-gray-700">Title</p>
+              <p className="font-medium">Title</p>
               <input
                 className="border border-gray-300 rounded px-3 py-2 focus:outline-none"
                 type="text"
@@ -80,7 +80,7 @@ const TodoList = () => {
                 value={task.title}
                 onChange={(e) => handleChange(task.id, "title", e.target.value)}
               />
-              <p className="font-medium text-gray-700">Description</p>
+              <p className="font-medium">Description</p>
               <textarea
                 className="border border-gray-300 rounded px-3 py-2 focus:outline-none"
                 name="description"
@@ -98,13 +98,9 @@ const TodoList = () => {
             </div>
           ) : (
             <div className="flex flex-col gap-2 w-100">
-              <span className="text-gray-600 font-medium">{index + 1}</span>
-              <h2 className="text-xl font-semibold text-gray-800">
-                {task.title}
-              </h2>
-              <p className="text-gray-600 whitespace-pre-wrap">
-                {task.description}
-              </p>
+              <span className="font-medium">{index + 1}</span>
+              <h2 className="text-xl font-semibold">{task.title}</h2>
+              <p className="whitespace-pre-wrap">{task.description}</p>
               <div className="flex gap-2">
                 <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded"
