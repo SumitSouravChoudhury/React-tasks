@@ -1,67 +1,57 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const TodoListNew = () => {
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
-    const savedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-
-    if (savedTasks && savedTasks.length > 0) {
-      setTasks(savedTasks);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  const handleAdd = () => {
+  const addTask = () => {
     setTasks((prev) => [
       ...prev,
-      { id: Date.now(), title: "", description: "", isEditing: true },
+      { id: Math.random(), title: "", description: "", isEditing: true },
     ]);
   };
 
-  const handleClearAll = () => {
+  const clearAll = () => {
     setTasks([]);
   };
 
   const handleChange = (id, field, value) => {
     setTasks((prev) =>
-      prev.map((task) => (task.id === id ? { ...task, [field]: value } : task))
+      prev.map((task) => (task.id === id ? { ...task, [field]: value } : task)),
     );
   };
 
   const handleSave = (id) => {
     setTasks((prev) =>
       prev.map((task) =>
-        task.id === id ? { ...task, isEditing: false } : task
-      )
+        task.id === id ? { ...task, isEditing: false } : task,
+      ),
     );
   };
 
   const handleEdit = (id) => {
     setTasks((prev) =>
-      prev.map((task) => (task.id === id ? { ...task, isEditing: true } : task))
+      prev.map((task) =>
+        task.id === id ? { ...task, isEditing: true } : task,
+      ),
     );
   };
 
   const handleDelete = (id) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
+    setTasks((prev) => prev.filter((task) => id !== task.id));
   };
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-5">
       <div className="flex gap-4">
         <button
-          className="cursor-pointer bg-blue-500 rounded px-3 py-1 text-white"
-          onClick={handleAdd}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded"
+          onClick={addTask}
         >
           Add Task
         </button>
         <button
-          className="cursor-pointer bg-blue-500 rounded px-3 py-1 text-white"
-          onClick={handleClearAll}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded"
+          onClick={clearAll}
         >
           Clear All
         </button>
@@ -70,20 +60,20 @@ const TodoListNew = () => {
       {tasks.map((task, index) => (
         <div key={task.id}>
           {task.isEditing ? (
-            <div>
+            <div className="flex flex-col gap-2 w-100">
               <p>{index + 1}</p>
-              <p>Title</p>
+              <p className="font-medium">Title</p>
               <input
-                className="border rounded"
+                className="border border-gray-300 rounded px-3 py-2 focus:outline-none"
                 type="text"
                 placeholder="Enter task title"
                 name="title"
                 value={task.title}
                 onChange={(e) => handleChange(task.id, "title", e.target.value)}
               />
-              <p>Description</p>
+              <p className="font-medium">Description</p>
               <textarea
-                className="border rounded"
+                className="border border-gray-300 rounded px-3 py-2 focus:outline-none"
                 placeholder="Enter task title"
                 name="description"
                 value={task.description}
@@ -92,25 +82,25 @@ const TodoListNew = () => {
                 }
               />
               <button
-                className="cursor-pointer bg-blue-500 rounded px-3 py-1 text-white"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded"
                 onClick={() => handleSave(task.id)}
               >
                 Save
               </button>
             </div>
           ) : (
-            <div className="flex flex-col gap-1">
-              <span>{task.title}</span>
-              <span>{task.description}</span>
-              <div className="flex gap-1">
+            <div className="flex flex-col gap-2 w-100">
+              <span className="text-xl font-semibold">{task.title}</span>
+              <span className="whitespace-pre-wrap">{task.description}</span>
+              <div className="flex gap-2">
                 <button
-                  className="cursor-pointer bg-blue-500 rounded px-3 py-1 text-white"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded"
                   onClick={() => handleEdit(task.id)}
                 >
                   Edit
                 </button>
                 <button
-                  className="cursor-pointer bg-red-500 rounded px-3 py-1 text-white"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded"
                   onClick={() => handleDelete(task.id)}
                 >
                   Delete

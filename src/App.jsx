@@ -14,6 +14,7 @@ import SearchFilterNew from "./containers/SearchFilter/SearchFilterNew";
 import Counter from "./containers/Counter/Counter";
 import CircleTask from "./containers/CircleTask/CircleTask";
 import EmojiTask from "./containers/EmojiTask/EmojiTask";
+import Text from "./containers/Text/Text";
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -53,6 +54,7 @@ function App() {
           <Route path="/counter" element={<Counter />} />
           <Route path="/circle" element={<CircleTask />} />
           <Route path="/emoji" element={<EmojiTask />} />
+          <Route path="/text" element={<Text />} />
         </Routes>
       </Router>
     </div>

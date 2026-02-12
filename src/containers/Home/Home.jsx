@@ -35,12 +35,17 @@ const Home = ({ isOpen, onClose }) => {
         >
           <Link to="/circle">Circle Task</Link>
         </button>
-
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded"
           onClick={onClose}
         >
           <Link to="/emoji">Emoji Task</Link>
+        </button>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold cursor-pointer py-2 px-4 rounded"
+          onClick={onClose}
+        >
+          <Link to="/text">Text</Link>
         </button>
       </div>
     </Modal>

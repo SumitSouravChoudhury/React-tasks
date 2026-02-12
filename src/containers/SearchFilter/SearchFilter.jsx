@@ -2,22 +2,22 @@ import { useEffect, useState } from "react";
 import useFetch from "../../components/useFetch";
 
 const SearchFilter = () => {
+  const DEFAULT_PER_PAGE = 5;
   const [searchTerm, setSearchTerm] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [isAsc, setIsAsc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageValue, setPageValue] = useState(1);
-
-  const ITEMS_PER_PAGE = 5;
+  const [itemPerPage, setItemPerPage] = useState(DEFAULT_PER_PAGE);
 
   const { data: users, loading: isLoading } = useFetch(
-    "https://jsonplaceholder.typicode.com/comments"
+    "https://jsonplaceholder.typicode.com/comments",
   );
 
   useEffect(() => {
     const delay = setTimeout(() => {
       const filteredItems = users.filter((user) =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+        user.name.toLowerCase().includes(searchTerm.toLowerCase()),
       );
 
       setFilterData(filteredItems);
@@ -34,8 +34,8 @@ const SearchFilter = () => {
   const toggleSort = () => {
     setFilterData(
       [...filterData].sort((a, b) =>
-        isAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
-      )
+        isAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+      ),
     );
     setIsAsc(!isAsc);
     setCurrentPage(1);
@@ -82,19 +82,25 @@ const SearchFilter = () => {
   };
 
   const handleNextClicked = () => {
-    setCurrentPage((p) => p + 1);
-    setPageValue(currentPage + 1);
+    setCurrentPage((prev) => {
+      const nextPage = prev + 1;
+      setPageValue(nextPage);
+      return nextPage;
+    });
   };
 
   const handlePrevClicked = () => {
-    setCurrentPage((p) => p - 1);
-    setPageValue(currentPage - 1);
+    setCurrentPage((prev) => {
+      const prevPage = prev - 1;
+      setPageValue(prevPage);
+      return prevPage;
+    });
   };
 
-  const totalPages = Math.ceil(filterData.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filterData.length / itemPerPage);
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const startIndex = (currentPage - 1) * itemPerPage;
+  const endIndex = startIndex + itemPerPage;
 
   const paginatedData = filterData.slice(startIndex, endIndex);
 
@@ -141,6 +147,14 @@ const SearchFilter = () => {
         })
       )}
       <div className="flex items-center gap-2 mt-4 flex-wrap">
+        <select
+          defaultValue={DEFAULT_PER_PAGE}
+          onChange={(e) => setItemPerPage(Number(e.target.value))}
+        >
+          <option>5</option>
+          <option>10</option>
+          <option>15</option>
+        </select>
         <button
           disabled={currentPage === 1}
           onClick={handlePrevClicked}

@@ -24,21 +24,23 @@ const TodoList = () => {
 
   const handleChange = (id, field, value) => {
     setTasks((prev) =>
-      prev.map((task) => (task.id === id ? { ...task, [field]: value } : task))
+      prev.map((task) => (task.id === id ? { ...task, [field]: value } : task)),
     );
   };
 
   const handleSave = (id) => {
     setTasks((prev) =>
       prev.map((task) =>
-        task.id === id ? { ...task, isEditing: false } : task
-      )
+        task.id === id ? { ...task, isEditing: false } : task,
+      ),
     );
   };
 
   const handleEdit = (id) => {
     setTasks((prev) =>
-      prev.map((task) => (task.id === id ? { ...task, isEditing: true } : task))
+      prev.map((task) =>
+        task.id === id ? { ...task, isEditing: true } : task,
+      ),
     );
   };
 
